@@ -1,0 +1,27 @@
+class AfroPenoHealth : ZilchComponent
+{
+[Property]
+    var Health : Real = 10;
+    function Initialize(init : CogInitializer)
+    {
+        Zero.Connect(this.Space, Events.LogicUpdate, this.OnLogicUpdate);
+    }
+    function OnCollisionStarted(event: CollisionEvent)
+    {
+        if(event.OtherObject.Name == "Afropeno")
+        {
+            var temp = this.Space.FindObjectByName("Afropeno").AfroPenoHealth.Health;
+            temp -=1;
+            this.Space.FindObjectByName("Afropeno").AfroPenoHealth.Health= temp;
+        }
+    }
+
+    function OnLogicUpdate(event : UpdateEvent)
+    {
+        Console.WriteLine(this.Health);
+        if(this.Health ==0)
+        {
+            this.Space.ReloadLevel();
+        }
+    }
+}

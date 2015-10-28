@@ -1,0 +1,28 @@
+class Boss1Script : ZilchComponent
+{
+    var Time : Integer = 0;
+    function Initialize(init : CogInitializer)
+    {
+        Zero.Connect(this.Space, Events.LogicUpdate, this.OnLogicUpdate);
+        var translation = Real3 (45,-40,0);
+        this.Owner.Transform.Translation = translation;
+    }
+
+    function OnLogicUpdate(event : UpdateEvent)
+    {
+        var movementTime = 100;
+        this.Owner.ForceEffect.Active = true;
+        this.Owner.ForceEffect.Strength = 20;
+        var temp = Real3(-1,1,0);
+        this.Owner.ForceEffect.Direction = temp;
+        this.Time +=1;
+        if(this.Time >= movementTime)
+        {
+            this.Owner.ForceEffect.Direction = Real3(1,1,0);
+            if(this.Time ==2*movementTime)
+            {
+                this.Time = 0;
+            }
+        }
+    }
+}

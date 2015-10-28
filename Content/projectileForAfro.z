@@ -1,0 +1,35 @@
+class ProjectileForAfro : ZilchComponent
+{
+    var Timer: Real = 0;
+    var Direction : Real3 = Real3(10,0,0);
+    function Initialize(init : CogInitializer)
+    {
+        Zero.Connect(this.Space, Events.LogicUpdate, this.OnLogicUpdate);
+        Zero.Connect(Zero.Keyboard, Events.KeyDown, this.OnKeyDown);
+    }
+    function OnLogicUpdate(event : UpdateEvent)
+    {
+        this.Timer += event.Dt;
+    }
+    function OnKeyDown (event : KeyboardEvent)
+    {
+        if(this.Timer >= 0.2)
+        {
+            this.Timer = 0;
+        
+        if(event.Key == Keys.Space)
+            {
+                // Spawn at this object's current position
+                var spawnPosition = this.Owner.Transform.Translation;
+            
+                // Find the Ball archetype:
+                var archetypeToSpawn = Archetype.Find("ProjectileOfAfropeno");
+            
+                // Pass the archetype and position to the Space to make our object
+                var createdBall = this.Space.CreateAtPosition(archetypeToSpawn, spawnPosition);
+            
+                createdBall.RigidBody.Velocity = Real3(20,0,0);
+            }
+        }
+    }
+}

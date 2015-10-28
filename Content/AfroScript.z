@@ -1,0 +1,36 @@
+class AfroScript : ZilchComponent
+{
+    var Speed : Real = 0.5;
+    function Initialize(init : CogInitializer)
+    {
+        Zero.Connect(this.Space, Events.LogicUpdate, this.OnLogicUpdate);
+    }
+
+    function OnLogicUpdate(event : UpdateEvent)
+    {
+        if(Zero.Keyboard.KeyIsDown(Keys.W))
+        {
+            var temp = this.Owner.Transform.Translation;
+            temp.Y +=0.3;
+        this.Owner.Transform.Translation = temp;
+        }
+        if(Zero.Keyboard.KeyIsDown(Keys.A))
+        {
+            var temp = this.Owner.Transform.Translation;
+            temp.X -=0.3;
+            this.Owner.Transform.Translation = temp;
+        }
+        if(Zero.Keyboard.KeyIsDown(Keys.S))
+        {
+            var temp = this.Owner.Transform.Translation;
+            temp.Y -=0.3;
+            this.Owner.Transform.Translation = temp;
+        }
+        if(Zero.Keyboard.KeyIsDown(Keys.D))
+        {
+            var temp = this.Owner.Transform.Translation;
+            temp.X +=0.3;
+            this.Owner.Transform.Translation = temp;
+        }
+}
+}
